@@ -1,5 +1,6 @@
 package com.chipi.music.artist;
 
+import jakarta.transaction.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +33,6 @@ public class ArtistController
     {
         artistService.deleteArtist(artistId);
     }
-
     @PutMapping(path = "{artistId}")
     public void updateArtist(@PathVariable("artistId") Long artistId, @RequestParam(required = false) String name,
                              @RequestParam(required = false) String location,

@@ -1,5 +1,6 @@
 package com.chipi.music.artist;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,7 @@ public class ArtistService
 
         artistRepository.deleteById(artistId);
     }
-
+    @Transactional
     public void updateArtist(Long artistId, String name, String location, String genre)
     {
         Artist artist = artistRepository.findById(artistId).orElseThrow(() -> new IllegalStateException("artist " +
@@ -55,6 +56,7 @@ public class ArtistService
             {
                 throw new IllegalStateException("artist already exists");
             }
+            System.out.println("ceva");
             artist.setName(name);
         }
 
