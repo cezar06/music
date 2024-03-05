@@ -29,6 +29,10 @@ public class Album
         this.artistId = artistId;
     }
 
+    public Album()
+    {
+    }
+
     public Long getId()
     {
         return id;
