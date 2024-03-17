@@ -17,15 +17,25 @@ public class ArtistController
     }
 
     @GetMapping
-    public List<Artist> getArtists()
+    public List<ArtistDTO> getArtists()
     {
         return artistService.getArtists();
     }
 
     @PostMapping
-    public void addNewArtist(@RequestBody Artist artist)
+    public void addNewArtist(@RequestBody ArtistDTO artistDTO)
     {
-        artistService.addNewArtist(artist);
+        artistService.addNewArtist(convertToEntity(artistDTO));
+    }
+
+    private Artist convertToEntity(ArtistDTO dto)
+    {
+        Artist artist = new Artist();
+        artist.setId(dto.getId());
+        artist.setName(dto.getName());
+        artist.setLocation(dto.getLocation());
+        artist.setGenre(dto.getGenre());
+        return artist;
     }
 
     @DeleteMapping(path = "{artistId}")
@@ -33,6 +43,7 @@ public class ArtistController
     {
         artistService.deleteArtist(artistId);
     }
+
     @PutMapping(path = "{artistId}")
     public void updateArtist(@PathVariable("artistId") Long artistId, @RequestParam(required = false) String name,
                              @RequestParam(required = false) String location,

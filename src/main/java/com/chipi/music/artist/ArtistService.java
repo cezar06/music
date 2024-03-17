@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ArtistService
@@ -19,9 +20,21 @@ public class ArtistService
         this.artistRepository = artistRepository;
     }
 
-    public List<Artist> getArtists()
+    public List<ArtistDTO> getArtists()
     {
-        return artistRepository.findAll();
+        return artistRepository.findAll().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    private ArtistDTO convertToDTO(Artist artist)
+    {
+        ArtistDTO dto = new ArtistDTO();
+        dto.setId(artist.getId());
+        dto.setName(artist.getName());
+        dto.setLocation(artist.getLocation());
+        dto.setGenre(artist.getGenre());
+        return dto;
     }
 
     public void addNewArtist(Artist artist)
@@ -44,6 +57,7 @@ public class ArtistService
 
         artistRepository.deleteById(artistId);
     }
+
     @Transactional
     public void updateArtist(Long artistId, String name, String location, String genre)
     {
