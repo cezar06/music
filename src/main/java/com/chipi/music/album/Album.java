@@ -7,16 +7,9 @@ import java.time.LocalDate;
 @Entity
 @Table
 public class Album
-{
-    @Id
-    @SequenceGenerator(
-            name = "album_sequence",
-            sequenceName = "album_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE
-    )
+{   @Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name = "id", nullable = false)
     private Long id;
     private String title;
     private LocalDate releaseDate;

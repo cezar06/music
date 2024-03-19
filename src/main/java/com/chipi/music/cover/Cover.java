@@ -9,18 +9,16 @@ import java.time.LocalDate;
 public class Cover
 {
     @Id
-    @SequenceGenerator(
-            name = "cover_sequence",
-            sequenceName = "cover_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
     private Long originalSongId;
     private Long coverArtistId;
     private LocalDate coverDate;
+
+    public Cover()
+    {
+    }
 
     public Cover(Long originalSongId, Long coverArtistId, LocalDate coverDate)
     {

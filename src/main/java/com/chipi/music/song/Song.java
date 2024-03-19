@@ -7,16 +7,9 @@ import java.time.Duration;
 @Entity
 @Table
 public class Song
-{
-    @Id
-    @SequenceGenerator(
-            name = "song_sequence",
-            sequenceName = "song_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE
-    )
+{   @Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@Column(name = "id", nullable = false)
     private Long id;
     private String title;
     private Duration duration;

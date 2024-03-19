@@ -5,16 +5,9 @@ import jakarta.persistence.*;
 @Entity
 @Table
 public class Artist
-{
-    @Id
-    @SequenceGenerator(
-            name = "artist_sequence",
-            sequenceName = "artist_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE
-    )
+{   @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
     private String name;
     private String location;
