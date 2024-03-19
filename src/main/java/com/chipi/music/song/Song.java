@@ -7,12 +7,12 @@ import java.time.Duration;
 @Entity
 @Table
 public class Song
-{   @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "id", nullable = false)
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
     private String title;
-    private Duration duration;
     private Long albumId;
     private Long artistId;
 
@@ -20,10 +20,9 @@ public class Song
     {
     }
 
-    public Song(String title, Duration duration, Long albumId, Long artistId)
+    public Song(String title, Long albumId, Long artistId)
     {
         this.title = title;
-        this.duration = duration;
         this.albumId = albumId;
         this.artistId = artistId;
     }
@@ -46,16 +45,6 @@ public class Song
     public void setTitle(String title)
     {
         this.title = title;
-    }
-
-    public Duration getDuration()
-    {
-        return duration;
-    }
-
-    public void setDuration(Duration duration)
-    {
-        this.duration = duration;
     }
 
     public Long getAlbumId()
@@ -84,7 +73,6 @@ public class Song
         return "Song{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", duration=" + duration +
                 ", albumId=" + albumId +
                 ", artistId=" + artistId +
                 '}';

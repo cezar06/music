@@ -38,7 +38,7 @@ public class SongService
         songRepository.deleteById(songId);
     }
     @Transactional
-    public void updateSong(Long songId, String title, Duration duration, Long albumId, Long artistId)
+    public void updateSong(Long songId, String title, Long albumId, Long artistId)
     {
         Song song = songRepository.findById(songId).orElseThrow(() -> new IllegalStateException("song " +
                 "with id " + songId + " does not exist"));
@@ -47,10 +47,6 @@ public class SongService
             song.setTitle(title);
         }
 
-        if (duration != null && !Objects.equals(song.getDuration(), duration))
-        {
-            song.setDuration(duration);
-        }
 
         if (albumId != null && !Objects.equals(song.getAlbumId(), albumId))
         {

@@ -40,6 +40,6 @@ public class SongController
                            @RequestParam(required = false) Duration duration,
                            @RequestParam(required = false) Long albumId, @RequestParam(required = false) Long artistId)
     {
-        songService.updateSong(songId, title, duration, albumId, artistId);
+        songService.updateSong(songId, title, albumId, artistId);
     }
 }
