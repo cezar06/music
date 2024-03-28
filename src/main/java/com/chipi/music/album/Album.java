@@ -7,9 +7,9 @@ import java.time.LocalDate;
 @Entity
 @Table
 public class Album
-{   @Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-@Column(name = "id", nullable = false)
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private LocalDate releaseDate;

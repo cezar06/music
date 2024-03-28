@@ -1,0 +1,44 @@
+version: '2'
+
+services:
+  app:
+    image: 'music:latest'
+    env_file:
+      - .env
+    build:
+      context: .
+    container_name: app
+    ports:
+      - "8080:8080/tcp"
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://host.docker.internal:5432/music
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    links:
+      - postgres
+  postgres:
+    image: 'postgres:latest'
+    container_name: my-db
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}/tcp
+  flyway:
+    container_name: my-flyway
+    environment:
+      - FLYWAY_USER=${POSTGRES_USER}
+      - FLYWAY_PASSWORD=${POSTGRES_PASSWORD}
+      - FLYWAY_URL=jdbc:postgresql://postgres:${POSTGRES_PORT}/${POSTGRES_DB}
+      - FLYWAY_SCHEMAS=${POSTGRES_SCHEMA}
+      - FLYWAY_GROUP=true
+    image: flyway/flyway:latest
+    command: -connectRetries=60 migrate
+    volumes:
+      - ./src/main/resources/db/migration:/flyway/sql
+    depends_on:
+      - postgres
